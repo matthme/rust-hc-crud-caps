@@ -9,5 +9,5 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 hc_crud_caps = { path = "../../.." }
-hdk = "=0.2.1"
+hdk = { git = "https://github.com/holochain/holochain", rev = "f010279667aa49b620f2d053b1cc9dc3e12ad76c" }
 serde = "1"
