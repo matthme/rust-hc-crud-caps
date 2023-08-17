@@ -13,8 +13,8 @@ name = "hc_crud"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-hdk = { git = "https://github.com/holochain/holochain", rev = "f010279667aa49b620f2d053b1cc9dc3e12ad76c" }
-holo_hash = { git = "https://github.com/holochain/holochain", rev = "f010279667aa49b620f2d053b1cc9dc3e12ad76c", features = [ "hashing", "encoding" ] } # needed for "from_raw_32" method
+hdk = { git = "https://github.com/holochain/holochain", rev = "f5270601c1a489086fed853812e1326726210dfd" }
+holo_hash = { git = "https://github.com/holochain/holochain", rev = "f5270601c1a489086fed853812e1326726210dfd", features = [ "hashing", "encoding" ] } # needed for "from_raw_32" method
 serde = "1"
 thiserror = "1"
 
