@@ -224,11 +224,14 @@ where
     Entry: TryFrom<T, Error = WasmError>,
     ScopedEntryDefIndex: for<'a> TryFrom<&'a ET, Error = WasmError>,
 {
-    let links_result = get_links(
-        id.to_owned().into(),
-	link_type,
-	tag.map( |tag| LinkTag::new( tag ) )
-    );
+    let links_result = get_links( GetLinksInput {
+        base_address: id.to_owned().into(),
+        link_type: link_type.try_into_filter()?,
+        tag_prefix: tag.map( |tag| LinkTag::new( tag ) ),
+        after: None,
+        before: None,
+        author: None
+    });
     debug!("get_entities: {:?}", links_result );
     let links = links_result?;
 

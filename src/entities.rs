@@ -91,11 +91,14 @@ impl<T> Entity<T> {
         WasmError: From<E>,
     {
 	let tag_filter = tag_input.to_owned().map( |tag| LinkTag::new( tag ) );
-	let all_links = get_links(
-	    current_base.clone(),
-	    link_type.to_owned(),
-	    tag_filter.to_owned(),
-	)?;
+	let all_links = get_links( GetLinksInput {
+		base_address: current_base.clone().into(),
+		link_type: link_type.to_owned().try_into_filter()?,
+		tag_prefix: tag_filter.to_owned(),
+		after: None,
+		before: None,
+		author: None,
+	})?;
 
 	if let Some(current_link) = all_links.into_iter().find(|link| {
 	    link.target == self.id.to_owned().into()
@@ -106,11 +109,14 @@ impl<T> Entity<T> {
 	    Err(UtilsError::UnexpectedState(format!("Aborting 'move_from_link' because existing link was not found")))?;
 	};
 
-	let new_links = get_links(
-	    new_base.clone(),
-	    link_type.to_owned(),
-	    tag_filter.to_owned(),
-	)?;
+	let new_links = get_links( GetLinksInput {
+		base_address: new_base.clone().into(),
+		link_type: link_type.clone().try_into_filter()?,
+		tag_prefix: tag_filter.to_owned(),
+		after: None,
+		before: None,
+		author: None
+	})?;
 
 	if let Some(existing_link) = new_links.into_iter().find(|link| {
 	    link.target == self.id.to_owned().into()
